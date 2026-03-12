@@ -1,67 +1,114 @@
-// import { getIssues } from "../Utils/storage"
+// // import { getIssues } from "../Utils/storage"
+
+// // export default function Dashboard(){
+
+// //   const issues = getIssues()
+
+// //   const pending = issues.filter(i => i.status==="Pending").length
+// //   const resolved = issues.filter(i => i.status==="Resolved").length
+
+// //   return(
+// //     <div>
+
+// //       <h2 className="text-2xl mb-6 font-bold">Dashboard</h2>
+
+// //       <div className="grid grid-cols-3 gap-4">
+
+// //         <div className="bg-yellow-200 p-6 rounded">
+// //           Pending Issues: {pending}
+// //         </div>
+
+// //         <div className="bg-green-200 p-6 rounded">
+// //           Resolved Issues: {resolved}
+// //         </div>
+
+// //         <div className="bg-blue-200 p-6 rounded">
+// //           Total Issues: {issues.length}
+// //         </div>
+
+// //       </div>
+// //     </div>
+// //   )
+// // }
+// import { getIssues } from "../utils/storage"
 
 // export default function Dashboard(){
 
 //   const issues = getIssues()
 
-//   const pending = issues.filter(i => i.status==="Pending").length
-//   const resolved = issues.filter(i => i.status==="Resolved").length
+//   const pending = issues.filter(i=>i.status==="Pending").length
+//   const resolved = issues.filter(i=>i.status==="Resolved").length
 
-//   return(
+//   return (
+
 //     <div>
 
-//       <h2 className="text-2xl mb-6 font-bold">Dashboard</h2>
+//       <h1 className="text-2xl font-bold mb-6">
+//         Dashboard
+//       </h1>
 
-//       <div className="grid grid-cols-3 gap-4">
+//       <div className="grid grid-cols-3 gap-6">
 
-//         <div className="bg-yellow-200 p-6 rounded">
-//           Pending Issues: {pending}
+//         <div className="bg-white shadow p-6 rounded-lg">
+//           <p className="text-gray-500">Total Issues</p>
+//           <h2 className="text-3xl font-bold">{issues.length}</h2>
 //         </div>
 
-//         <div className="bg-green-200 p-6 rounded">
-//           Resolved Issues: {resolved}
+//         <div className="bg-white shadow p-6 rounded-lg">
+//           <p className="text-gray-500">Pending</p>
+//           <h2 className="text-3xl font-bold text-yellow-500">
+//             {pending}
+//           </h2>
 //         </div>
 
-//         <div className="bg-blue-200 p-6 rounded">
-//           Total Issues: {issues.length}
+//         <div className="bg-white shadow p-6 rounded-lg">
+//           <p className="text-gray-500">Resolved</p>
+//           <h2 className="text-3xl font-bold text-green-500">
+//             {resolved}
+//           </h2>
 //         </div>
 
 //       </div>
+
 //     </div>
 //   )
 // }
-import { getIssues } from "../utils/storage"
 
-export default function Dashboard(){
+import { useEffect, useState } from "react";
+import { getIssues } from "../utils/storage";
 
-  const issues = getIssues()
+export default function Dashboard() {
 
-  const pending = issues.filter(i=>i.status==="Pending").length
-  const resolved = issues.filter(i=>i.status==="Resolved").length
+  const [issues, setIssues] = useState([]);
+
+  useEffect(() => {
+    setIssues(getIssues());
+  }, []);
+
+  const pending = issues.filter(i => i.status === "Pending").length;
+  const resolved = issues.filter(i => i.status === "Resolved").length;
 
   return (
+    <div className="space-y-6">
 
-    <div>
+      <h1 className="text-2xl font-bold">Dashboard</h1>
 
-      <h1 className="text-2xl font-bold mb-6">
-        Dashboard
-      </h1>
-
+      {/* Stats */}
       <div className="grid grid-cols-3 gap-6">
 
-        <div className="bg-white shadow p-6 rounded-lg">
+        <div className="card">
           <p className="text-gray-500">Total Issues</p>
           <h2 className="text-3xl font-bold">{issues.length}</h2>
         </div>
 
-        <div className="bg-white shadow p-6 rounded-lg">
+        <div className="card">
           <p className="text-gray-500">Pending</p>
           <h2 className="text-3xl font-bold text-yellow-500">
             {pending}
           </h2>
         </div>
 
-        <div className="bg-white shadow p-6 rounded-lg">
+        <div className="card">
           <p className="text-gray-500">Resolved</p>
           <h2 className="text-3xl font-bold text-green-500">
             {resolved}
@@ -70,6 +117,29 @@ export default function Dashboard(){
 
       </div>
 
+      {/* Latest Issues */}
+
+      <div className="card">
+
+        <h2 className="text-lg font-semibold mb-3">
+          Recent Issues
+        </h2>
+
+        {issues.slice(-5).reverse().map(issue => (
+          <div
+            key={issue.id}
+            className="border-b py-2 flex justify-between"
+          >
+            <span>{issue.title}</span>
+
+            <span className="text-sm text-gray-500">
+              {issue.status}
+            </span>
+          </div>
+        ))}
+
+      </div>
+
     </div>
-  )
+  );
 }
