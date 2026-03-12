@@ -1,67 +1,40 @@
-// // import { getIssues } from "../Utils/storage"
 
-// // export default function Dashboard(){
 
-// //   const issues = getIssues()
+// import { useEffect, useState } from "react";
+// import { getIssues } from "../utils/storage";
 
-// //   const pending = issues.filter(i => i.status==="Pending").length
-// //   const resolved = issues.filter(i => i.status==="Resolved").length
+// export default function Dashboard() {
 
-// //   return(
-// //     <div>
+//   const [issues, setIssues] = useState([]);
 
-// //       <h2 className="text-2xl mb-6 font-bold">Dashboard</h2>
+//   useEffect(() => {
+//     setIssues(getIssues());
+//   }, []);
 
-// //       <div className="grid grid-cols-3 gap-4">
-
-// //         <div className="bg-yellow-200 p-6 rounded">
-// //           Pending Issues: {pending}
-// //         </div>
-
-// //         <div className="bg-green-200 p-6 rounded">
-// //           Resolved Issues: {resolved}
-// //         </div>
-
-// //         <div className="bg-blue-200 p-6 rounded">
-// //           Total Issues: {issues.length}
-// //         </div>
-
-// //       </div>
-// //     </div>
-// //   )
-// // }
-// import { getIssues } from "../utils/storage"
-
-// export default function Dashboard(){
-
-//   const issues = getIssues()
-
-//   const pending = issues.filter(i=>i.status==="Pending").length
-//   const resolved = issues.filter(i=>i.status==="Resolved").length
+//   const pending = issues.filter(i => i.status === "Pending").length;
+//   const resolved = issues.filter(i => i.status === "Resolved").length;
 
 //   return (
+//     <div className="space-y-6">
 
-//     <div>
+//       <h1 className="text-2xl font-bold">Dashboard</h1>
 
-//       <h1 className="text-2xl font-bold mb-6">
-//         Dashboard
-//       </h1>
-
+//       {/* Stats */}
 //       <div className="grid grid-cols-3 gap-6">
 
-//         <div className="bg-white shadow p-6 rounded-lg">
+//         <div className="card">
 //           <p className="text-gray-500">Total Issues</p>
 //           <h2 className="text-3xl font-bold">{issues.length}</h2>
 //         </div>
 
-//         <div className="bg-white shadow p-6 rounded-lg">
+//         <div className="card">
 //           <p className="text-gray-500">Pending</p>
 //           <h2 className="text-3xl font-bold text-yellow-500">
 //             {pending}
 //           </h2>
 //         </div>
 
-//         <div className="bg-white shadow p-6 rounded-lg">
+//         <div className="card">
 //           <p className="text-gray-500">Resolved</p>
 //           <h2 className="text-3xl font-bold text-green-500">
 //             {resolved}
@@ -70,23 +43,54 @@
 
 //       </div>
 
+//       {/* Latest Issues */}
+
+//       <div className="card">
+
+//         <h2 className="text-lg font-semibold mb-3">
+//           Recent Issues
+//         </h2>
+
+//         {issues.slice(-5).reverse().map(issue => (
+//           <div
+//             key={issue.id}
+//             className="border-b py-2 flex justify-between"
+//           >
+//             <span>{issue.title}</span>
+
+//             <span className="text-sm text-gray-500">
+//               {issue.status}
+//             </span>
+//           </div>
+//         ))}
+
+//       </div>
+
 //     </div>
-//   )
+//   );
 // }
 
 import { useEffect, useState } from "react";
-import { getIssues } from "../utils/storage";
+import { getIssues } from "../Utils/storage.js";
 
 export default function Dashboard() {
 
   const [issues, setIssues] = useState([]);
 
   useEffect(() => {
-    setIssues(getIssues());
+    const storedIssues = getIssues();
+    setIssues(storedIssues);
   }, []);
 
-  const pending = issues.filter(i => i.status === "Pending").length;
-  const resolved = issues.filter(i => i.status === "Resolved").length;
+  const total = issues.length;
+
+  const pending = issues.filter(
+    issue => issue.status === "Pending"
+  ).length;
+
+  const resolved = issues.filter(
+    issue => issue.status === "Resolved"
+  ).length;
 
   return (
     <div className="space-y-6">
@@ -94,22 +98,23 @@ export default function Dashboard() {
       <h1 className="text-2xl font-bold">Dashboard</h1>
 
       {/* Stats */}
+
       <div className="grid grid-cols-3 gap-6">
 
-        <div className="card">
+        <div className="bg-white shadow p-6 rounded-lg">
           <p className="text-gray-500">Total Issues</p>
-          <h2 className="text-3xl font-bold">{issues.length}</h2>
+          <h2 className="text-3xl font-bold">{total}</h2>
         </div>
 
-        <div className="card">
-          <p className="text-gray-500">Pending</p>
+        <div className="bg-white shadow p-6 rounded-lg">
+          <p className="text-gray-500">Pending Issues</p>
           <h2 className="text-3xl font-bold text-yellow-500">
             {pending}
           </h2>
         </div>
 
-        <div className="card">
-          <p className="text-gray-500">Resolved</p>
+        <div className="bg-white shadow p-6 rounded-lg">
+          <p className="text-gray-500">Resolved Issues</p>
           <h2 className="text-3xl font-bold text-green-500">
             {resolved}
           </h2>
@@ -117,26 +122,32 @@ export default function Dashboard() {
 
       </div>
 
-      {/* Latest Issues */}
+      {/* Recent Issues */}
 
-      <div className="card">
+      <div className="bg-white shadow p-6 rounded-lg">
 
-        <h2 className="text-lg font-semibold mb-3">
+        <h2 className="text-lg font-semibold mb-4">
           Recent Issues
         </h2>
 
-        {issues.slice(-5).reverse().map(issue => (
-          <div
-            key={issue.id}
-            className="border-b py-2 flex justify-between"
-          >
-            <span>{issue.title}</span>
+        {issues.length === 0 ? (
+          <p className="text-gray-500">
+            No issues reported yet
+          </p>
+        ) : (
+          issues.slice(-5).reverse().map(issue => (
+            <div
+              key={issue.id}
+              className="border-b py-2 flex justify-between"
+            >
+              <span>{issue.title}</span>
 
-            <span className="text-sm text-gray-500">
-              {issue.status}
-            </span>
-          </div>
-        ))}
+              <span className="text-sm text-gray-500">
+                {issue.status}
+              </span>
+            </div>
+          ))
+        )}
 
       </div>
 
