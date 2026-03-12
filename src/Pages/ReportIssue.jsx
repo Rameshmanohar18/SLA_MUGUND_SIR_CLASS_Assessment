@@ -26,37 +26,70 @@ export default function ReportIssue(){
   }
 
   return(
-    <form onSubmit={submit} className="max-w-md space-y-4">
+    // <form onSubmit={submit} className="max-w-md space-y-4">
 
-      <h2 className="text-xl font-bold">Report Issue</h2>
+    //   <h2 className="text-xl font-bold">Report Issue</h2>
 
-      <input
-        className="border p-2 w-full"
-        placeholder="Issue title"
-        onChange={e=>setTitle(e.target.value)}
-      />
+    //   <input
+    //     className="border p-2 w-full"
+    //     placeholder="Issue title"
+    //     onChange={e=>setTitle(e.target.value)}
+    //   />
 
-      <select
-        className="border p-2 w-full"
-        onChange={e=>setCategory(e.target.value)}
-      >
-        <option>Category</option>
-        <option>Hostel</option>
-        <option>Canteen</option>
-        <option>Transport</option>
-        <option>Infrastructure</option>
-      </select>
+    //   <select
+    //     className="border p-2 w-full"
+    //     onChange={e=>setCategory(e.target.value)}
+    //   >
+    //     <option>Category</option>
+    //     <option>Hostel</option>
+    //     <option>Canteen</option>
+    //     <option>Transport</option>
+    //     <option>Infrastructure</option>
+    //   </select>
 
-      <textarea
-        className="border p-2 w-full"
-        placeholder="Description"
-        onChange={e=>setDescription(e.target.value)}
-      />
+    //   <textarea
+    //     className="border p-2 w-full"
+    //     placeholder="Description"
+    //     onChange={e=>setDescription(e.target.value)}
+    //   />
 
-      <button className="bg-blue-600 text-white px-4 py-2">
-        Submit
-      </button>
+    //   <button className="bg-blue-600 text-white px-4 py-2">
+    //     Submit
+    //   </button>
 
-    </form>
+    // </form>
+
+    <form className="bg-white shadow-lg p-6 rounded-lg max-w-lg">
+
+  <h2 className="text-xl font-bold mb-4">
+    Report an Issue
+  </h2>
+
+  <input
+    className="border p-3 w-full rounded mb-3"
+    placeholder="Issue Title"
+  />
+
+  <select className="border p-3 w-full rounded mb-3">
+    <option>Category</option>
+    <option>Canteen</option>
+    <option>Hostel</option>
+    <option>Transport</option>
+  </select>
+
+  <textarea
+    className="border p-3 w-full rounded mb-3"
+    placeholder="Describe the issue..."
+  />
+
+  <button className="
+  bg-blue-600 text-white
+  px-5 py-2 rounded
+  hover:bg-blue-700
+  ">
+    Submit Issue
+  </button>
+
+</form>
   )
 }

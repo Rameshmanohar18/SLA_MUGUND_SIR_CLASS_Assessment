@@ -80,7 +80,7 @@ button:focus-visible {
   font-weight: 400;
 
   color: #1f2937;
-  background: #f4f6f9;
+  background: #84148a;
 
   -webkit-font-smoothing: antialiased;
 }
@@ -90,7 +90,7 @@ button:focus-visible {
 body {
   margin: 0;
   min-height: 100vh;
-  background: #f4f6f9;
+  background: #76a10a;
 }
 
 /* Links */
@@ -152,7 +152,7 @@ button {
 /* Cards */
 
 .card {
-  background: white;
+  background: rgb(0, 171, 37);
   border-radius: 12px;
   padding: 20px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
@@ -169,7 +169,7 @@ button {
 input,
 textarea,
 select {
-  border: 1px solid #d1d5db;
+  border: 1px solid #a30d96;
   padding: 10px;
   border-radius: 8px;
   width: 100%;
