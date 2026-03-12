@@ -1,21 +1,8 @@
-// export default function Home(){
-//   return(
-//     <div className="bg-blue-100 p-10 rounded">
-//       <h2 className="text-3xl font-bold mb-3">
-//         Welcome to the Student Portal
-//       </h2>
 
-//       <p>
-//         Report campus issues, track complaints and stay updated
-//         with college announcements.
-//       </p>
-//     </div>
-//   )
-// }
 
 export default function Home() {
   return (
-    <div className="bg-white shadow-lg rounded-xl p-10 flex items-center gap-10">
+    <div className="bg-yellow shadow-lg rounded-xl p-10 flex items-center gap-10">
 
       {/* Left Content */}
       <div className="flex-1">
@@ -37,13 +24,14 @@ export default function Home() {
       </div>
 
       {/* Right Image */}
-     {/* <div className="flex-1">
+     <div className="flex-1">
         <img
-          src="https://images.unsplash.com/photo-1523240795612-9a054b0db644"
-          alt="Students discussion"
-          className="rounded-xl shadow-md"
-        />
-      </div>  */}
+  src="https://images.unsplash.com/photo-1523240795612-9a054b0db644"
+  alt="Students discussion"
+  width="400"
+  height="300"
+/>
+      </div> 
 
     </div>
   );
